@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software & Download Portal</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Header / Navigation & Search -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+            <!-- Category Tabs -->
+            <div id="tabs-container" class="flex flex-wrap gap-2">
+                <button onclick="switchCategory('software')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition active-tab bg-blue-600 text-white shadow-md">Software</button>
+                <button onclick="switchCategory('theme')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Theme</button>
+                <button onclick="switchCategory('game')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Game</button>
+                <button onclick="switchCategory('windows')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Windows</button>
+                <button onclick="switchCategory('minisoftware')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Mini Software</button>
+                <button onclick="switchCategory('howtodownload')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">How to Download</button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="w-full md:w-72">
+                <input type="text" id="search-input" oninput="filterItems()" placeholder="Search all items..." class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div id="content-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <!-- Items will be loaded dynamically here -->
+        </div>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script>
+        const JSON_LINKS = {
+            software: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/software.json",
+            theme: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/theme.json",
+            game: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/game.json",
+            windows: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/windows.json",
+            minisoftware: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/minisoftware.json",
+            howtodownload: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/howtodownload.json"
+        };
+
+        let currentData = [];
+        let activeCategory = 'software';
+
+        async function switchCategory(category) {
+            activeCategory = category;
+            
+            // Update active button styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-blue-600');
+                if(btn.textContent.toLowerCase().replace(/\s+/g, '') === category) {
+                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+                    btn.classList.remove('text-blue-600');
+                }
+            });
+
+            document.getElementById('search-input').value = '';
+            await loadData(category);
+        }
+
+        async function loadData(category) {
+            const grid = document.getElementById('content-grid');
+            grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Loading...</p>';
+
+            try {
+                const response = await fetch(JSON_LINKS[category]);
+                if (!response.ok) throw new Error("Failed to fetch data");
+                currentData = await response.json();
+                displayItems(currentData);
+            } catch (error) {
+                grid.innerHTML = `<p class="col-span-full text-center text-red-500 py-10">Failed to load content. Please check JSON link.</p>`;
+                console.error(error);
+            }
+        }
+
+        function displayItems(items) {
+            const grid = document.getElementById('content-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">No items found.</p>';
+                return;
+            }
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white border border-gray-200 rounded-xl p-4 flex flex-col items-center justify-between shadow-sm hover:shadow-md transition cursor-pointer';
+                card.onclick = () => { if(item.link) window.open(item.link, '_blank'); };
+
+                card.innerHTML = `
+                    <div class="w-24 h-24 flex items-center justify-center mb-3">
+                        <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <span class="text-sm font-medium text-center text-gray-700 line-clamp-1">${item.title}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterItems() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = currentData.filter(item => item.title.toLowerCase().includes(query));
+            displayItems(filtered);
+        }
+
+        // Initial load
+        loadData('software');
+    </script>
+</body>
+</html>
