@@ -1,0 +1,22 @@
+[
+  {
+    "title": "CapCut",
+    "image": "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/images/capcut.png",
+    "link": "https://example.com/download/capcut"
+  },
+  {
+    "title": "Notepad++",
+    "image": "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/images/notepad.png",
+    "link": "https://example.com/download/notepad"
+  },
+  {
+    "title": "IDM",
+    "image": "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/images/idm.png",
+    "link": "https://example.com/download/idm"
+  },
+  {
+    "title": "Filmora",
+    "image": "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/images/filmora.png",
+    "link": "https://example.com/download/filmora"
+  }
+]
