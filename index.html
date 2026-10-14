@@ -3,46 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software & Download Portal</title>
-    <!-- Tailwind CSS for styling -->
+    <title>PC Store - Software & Download Portal</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen text-gray-800">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <div class="max-w-7xl mx-auto px-4 py-6">
-        <!-- Header / Navigation & Search -->
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-            <!-- Category Tabs -->
-            <div id="tabs-container" class="flex flex-wrap gap-2">
-                <button onclick="switchCategory('software')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition active-tab bg-blue-600 text-white shadow-md">Software</button>
-                <button onclick="switchCategory('theme')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Theme</button>
-                <button onclick="switchCategory('game')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Game</button>
-                <button onclick="switchCategory('windows')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Windows</button>
-                <button onclick="switchCategory('minisoftware')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Mini Software</button>
-                <button onclick="switchCategory('howtodownload')" class="tab-btn px-5 py-2 rounded-full border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">How to Download</button>
+    <!-- Header / Navbar -->
+    <header class="bg-slate-800/80 backdrop-blur-md border-b border-slate-700/60 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- Logo / Brand Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-store text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-white">PC Store</h1>
+                    <p class="text-xs text-slate-400">Your Ultimate Software & Game Hub</p>
+                </div>
             </div>
 
             <!-- Search Bar -->
-            <div class="w-full md:w-72">
-                <input type="text" id="search-input" oninput="filterItems()" placeholder="Search all items..." class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+            <div class="w-full md:w-80 relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </span>
+                <input type="text" id="search-input" oninput="filterItems()" placeholder="Search apps, games, tools..." 
+                    class="w-full pl-10 pr-4 py-2 bg-slate-900/90 border border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-inner placeholder:text-slate-500 text-slate-200">
             </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full">
+        
+        <!-- Category Navigation Tabs -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+            <button onclick="switchCategory('software')" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-blue-600 text-white shadow-lg shadow-blue-600/30">
+                <i class="fa-solid fa-box-archive"></i> Software
+            </button>
+            <button onclick="switchCategory('theme')" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60">
+                <i class="fa-solid fa-paintbrush"></i> Theme
+            </button>
+            <button onclick="switchCategory('game')" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60">
+                <i class="fa-solid fa-gamepad"></i> Game
+            </button>
+            <button onclick="switchCategory('windows')" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60">
+                <i class="fa-brands fa-windows"></i> Windows
+            </button>
+            <button onclick="switchCategory('minisoftware')" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60">
+                <i class="fa-solid fa-feather"></i> Mini Software
+            </button>
+            <button onclick="switchCategory('howtodownload')" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60">
+                <i class="fa-solid fa-circle-question"></i> How to Download
+            </button>
         </div>
 
         <!-- Content Grid -->
-        <div id="content-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <!-- Items will be loaded dynamically here -->
+        <div id="content-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+            <!-- Dynamic Cards Loaded via JS -->
         </div>
-    </div>
+    </main>
 
-    <!-- JavaScript logic -->
+    <!-- Footer -->
+    <footer class="bg-slate-800/40 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        <p>&copy; 2026 PC Store. All rights reserved. Powered by GitHub JSON.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
     <script>
         const JSON_LINKS = {
-            software: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/software.json",
-            theme: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/theme.json",
-            game: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/game.json",
-            windows: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/windows.json",
-            minisoftware: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/minisoftware.json",
-            howtodownload: "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/json/howtodownload.json"
+            software: "https://raw.githubusercontent.com/Sobujaka/pc-store/refs/heads/main/software.json",
+            theme: "https://raw.githubusercontent.com/Sobujaka/pc-store/refs/heads/main/theme.json",
+            game: "https://raw.githubusercontent.com/Sobujaka/pc-store/refs/heads/main/game.json",
+            windows: "https://raw.githubusercontent.com/Sobujaka/pc-store/refs/heads/main/windows.json",
+            minisoftware: "https://raw.githubusercontent.com/Sobujaka/pc-store/refs/heads/main/minisoftware.json",
+            howtodownload: "https://raw.githubusercontent.com/Sobujaka/pc-store/refs/heads/main/howtodownload.json"
         };
 
         let currentData = [];
@@ -51,13 +95,11 @@
         async function switchCategory(category) {
             activeCategory = category;
             
-            // Update active button styles
+            // Update active tab buttons style
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
-                btn.classList.add('text-blue-600');
-                if(btn.textContent.toLowerCase().replace(/\s+/g, '') === category) {
-                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
-                    btn.classList.remove('text-blue-600');
+                btn.className = "tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60";
+                if(btn.textContent.toLowerCase().replace(/\s+/g, '').includes(category)) {
+                    btn.className = "tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition whitespace-nowrap bg-blue-600 text-white shadow-lg shadow-blue-600/30";
                 }
             });
 
@@ -67,7 +109,12 @@
 
         async function loadData(category) {
             const grid = document.getElementById('content-grid');
-            grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">Loading...</p>';
+            grid.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-slate-400">
+                    <i class="fa-solid fa-spinner fa-spin text-3xl text-blue-500 mb-3"></i>
+                    <p class="text-sm font-medium">Loading items...</p>
+                </div>
+            `;
 
             try {
                 const response = await fetch(JSON_LINKS[category]);
@@ -75,7 +122,12 @@
                 currentData = await response.json();
                 displayItems(currentData);
             } catch (error) {
-                grid.innerHTML = `<p class="col-span-full text-center text-red-500 py-10">Failed to load content. Please check JSON link.</p>`;
+                grid.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-16 text-rose-400 bg-rose-500/10 rounded-2xl border border-rose-500/20">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-2"></i>
+                        <p class="text-sm font-medium">Failed to load content. Check your JSON links or internet connection.</p>
+                    </div>
+                `;
                 console.error(error);
             }
         }
@@ -85,20 +137,28 @@
             grid.innerHTML = '';
 
             if (items.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">No items found.</p>';
+                grid.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-20 text-slate-500">
+                        <i class="fa-solid fa-box-open text-4xl mb-3"></i>
+                        <p class="text-sm font-medium">No items found.</p>
+                    </div>
+                `;
                 return;
             }
 
             items.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'bg-white border border-gray-200 rounded-xl p-4 flex flex-col items-center justify-between shadow-sm hover:shadow-md transition cursor-pointer';
+                card.className = 'group bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-blue-500/50 rounded-2xl p-4 flex flex-col items-center justify-between transition-all duration-300 hover:-translate-y-1.5 shadow-md hover:shadow-xl hover:shadow-blue-500/10 cursor-pointer';
                 card.onclick = () => { if(item.link) window.open(item.link, '_blank'); };
 
                 card.innerHTML = `
-                    <div class="w-24 h-24 flex items-center justify-center mb-3">
-                        <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain">
+                    <div class="w-24 h-24 flex items-center justify-center mb-4 p-2 bg-slate-900/50 rounded-xl group-hover:bg-slate-900 transition-colors">
+                        <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain drop-shadow-md">
                     </div>
-                    <span class="text-sm font-medium text-center text-gray-700 line-clamp-1">${item.title}</span>
+                    <span class="text-sm font-semibold text-center text-slate-200 group-hover:text-blue-400 transition-colors line-clamp-1 mb-3">${item.title}</span>
+                    <div class="w-full pt-2 border-t border-slate-700/50 flex items-center justify-center text-xs text-blue-400 font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                        <span>Download <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                    </div>
                 `;
                 grid.appendChild(card);
             });
@@ -110,7 +170,7 @@
             displayItems(filtered);
         }
 
-        // Initial load
+        // Initial load on page start
         loadData('software');
     </script>
 </body>
