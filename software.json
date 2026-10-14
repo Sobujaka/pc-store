@@ -1,0 +1,12 @@
+[
+  {
+    "title": "RUFUS",
+    "image": "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/images/rufus.png",
+    "link": "https://example.com/download/rufus"
+  },
+  {
+    "title": "WinRAR 64bit",
+    "image": "https://raw.githubusercontent.com/sobujaka/sobujaka.github.io/main/images/winrar.png",
+    "link": "https://example.com/download/winrar"
+  }
+]
